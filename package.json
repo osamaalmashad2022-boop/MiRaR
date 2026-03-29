@@ -1,0 +1,13 @@
+{
+  "name": "nexora-platform",
+  "version": "1.0.0",
+  "description": "Educational Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "extract": "node scripts/extract_pdf.js"
+  },
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
+  }
+}
