@@ -2,12 +2,14 @@ import { renderHome } from './views/home.js';
 import { renderCourseGeo } from './views/course-geo.js';
 import { renderCourseArabic } from './views/course-arabic.js';
 import { renderCourseEnglish } from './views/course-english.js';
+import { renderLogin } from './views/login.js';
 
 const routes = {
     'home': renderHome,
     'course-geo': renderCourseGeo,
     'course-arabic': renderCourseArabic,
     'course-english': renderCourseEnglish,
+    'login': renderLogin,
 };
 
 function navigateTo(route) {
@@ -75,12 +77,12 @@ document.addEventListener('click', (e) => {
 
 // Handle browser back/forward
 window.addEventListener('popstate', () => {
-    const route = window.location.hash.replace('#', '') || 'home';
+    const route = window.location.hash.replace('#', '') || 'login';
     navigateTo(route);
 });
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
-    const initialRoute = window.location.hash.replace('#', '') || 'home';
+    const initialRoute = window.location.hash.replace('#', '') || 'login';
     navigateTo(initialRoute);
 });
