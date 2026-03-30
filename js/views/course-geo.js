@@ -1,3 +1,6 @@
+import { renderQuiz } from '../components/quiz.js';
+import { geoQuizzes } from '../data/geo-quizzes.js';
+
 export function renderCourseGeo(container) {
     const dashboardHTML = `
         <div class="container fade-in" style="padding: 40px 0; max-width: 1400px; padding-bottom: 100px;">
@@ -21,7 +24,7 @@ export function renderCourseGeo(container) {
                             <p style="color: var(--gray-600); margin: 0; font-weight: 600;">قم بتحديد مستوى معرفتك قبل البدء في دراسة الوحدات</p>
                         </div>
                     </div>
-                    <button class="course-btn" style="--c-color: var(--primary); min-width: 200px; text-align: center;">دخول الاختبار <span style="font-size: 1.2rem; margin-right: 8px;">&larr;</span></button>
+                    <button id="btn-pre-test" class="course-btn" style="--c-color: var(--primary); min-width: 200px; text-align: center;">دخول الاختبار <span style="font-size: 1.2rem; margin-right: 8px;">&larr;</span></button>
                 </div>
 
                 <div>
@@ -106,7 +109,7 @@ export function renderCourseGeo(container) {
                             <p style="color: var(--gray-600); margin: 0; font-weight: 600;">قم باختبار معلوماتك بعد الانتهاء من دراسة جميع الوحدات للحصول على التقييم</p>
                         </div>
                     </div>
-                    <button class="course-btn" style="--c-color: #10b981; min-width: 200px; text-align: center;">دخول الاختبار <span style="font-size: 1.2rem; margin-right: 8px;">&larr;</span></button>
+                    <button id="btn-post-test" class="course-btn" style="--c-color: #10b981; min-width: 200px; text-align: center;">دخول الاختبار <span style="font-size: 1.2rem; margin-right: 8px;">&larr;</span></button>
                 </div>
 
             </div>
@@ -207,8 +210,50 @@ export function renderCourseGeo(container) {
         });
     }
 
+    function renderQuizView(quizTitle, questions) {
+        container.innerHTML = `
+            <div class="container fade-in" style="padding: 20px 0; max-width: 1400px; min-height: 80vh; display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px 25px; background: white; border-radius: 15px; box-shadow: var(--shadow-sm); border: 1px solid rgba(14, 165, 233, 0.2);">
+                    <h2 style="margin: 0; font-size: 1.5rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px;">
+                        <span>📝</span> ${quizTitle}
+                    </h2>
+                    <button id="btn-back-to-dash-quiz" class="btn-primary" style="padding: 10px 20px; font-size: 1rem; border-radius: 12px; display: inline-flex; background: var(--primary); color: white; border: none;">
+                        <span>&rarr;</span> <span style="margin-right: 8px;">العودة للوحة التحكم</span>
+                    </button>
+                </div>
+                
+                <div id="quiz-content-area" style="flex: 1; max-width: 800px; margin: 0 auto; width: 100%;">
+                    <!-- Quiz will be rendered here -->
+                </div>
+            </div>
+        `;
+
+        const quizContainer = container.querySelector('#quiz-content-area');
+        renderQuiz(quizContainer, questions);
+
+        container.querySelector('#btn-back-to-dash-quiz').addEventListener('click', () => {
+            initDashboard();
+        });
+    }
+
     function initDashboard() {
         container.innerHTML = dashboardHTML;
+
+        // Pre-test button
+        const btnPreTest = container.querySelector('#btn-pre-test');
+        if (btnPreTest) {
+            btnPreTest.addEventListener('click', () => {
+                renderQuizView("الاختبار القبلي المبدئي - جغرافيا", geoQuizzes.preTest);
+            });
+        }
+
+        // Post-test button
+        const btnPostTest = container.querySelector('#btn-post-test');
+        if (btnPostTest) {
+            btnPostTest.addEventListener('click', () => {
+                renderQuizView("الاختبار البعدي النهائي - جغرافيا", geoQuizzes.postTest);
+            });
+        }
         
         const btnOpenUnit = container.querySelector('#btn-open-unit-1');
         if(btnOpenUnit) {

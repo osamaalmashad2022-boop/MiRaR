@@ -43,8 +43,8 @@ export function renderHome(container) {
                 <div style="text-align: center; border-top: 2px dashed rgba(203, 213, 225, 0.6); padding-top: 30px; margin: 0 auto; max-width: 600px; position: relative; z-index: 1;">
                     <h3 style="font-size: 1.2rem; color: var(--gray-700); font-weight: 700; margin-bottom: 15px;">تحت إشراف:</h3>
                     <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-                        <span style="font-size: 1.3rem; font-weight: 900; color: var(--primary-dark); background: rgba(255,255,255,0.7); padding: 8px 25px; border-radius: 15px; box-shadow: var(--shadow-sm);">الدكتور / محمد شمة</span>
-                        <span style="font-size: 1.3rem; font-weight: 900; color: var(--primary-dark); background: rgba(255,255,255,0.7); padding: 8px 25px; border-radius: 15px; box-shadow: var(--shadow-sm);">الدكتورة / غادة متولي</span>
+                        <span style="font-size: 1.3rem; font-weight: 900; color: var(--primary-dark); background: rgba(255,255,255,0.7); padding: 8px 25px; border-radius: 15px; box-shadow: var(--shadow-sm);">أ.د/ محمد شمة</span>
+                        <span style="font-size: 1.3rem; font-weight: 900; color: var(--primary-dark); background: rgba(255,255,255,0.7); padding: 8px 25px; border-radius: 15px; box-shadow: var(--shadow-sm);">م/ غادة متولي</span>
                     </div>
                 </div>
             </div>

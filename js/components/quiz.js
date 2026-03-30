@@ -1,17 +1,37 @@
-export function renderQuiz(container, questions) {
+export function renderQuiz(container, questions, options = { direction: 'rtl' }) {
     let currentQuestion = 0;
+    const isRtl = options.direction === 'rtl';
+    const labels = isRtl ? {
+        finish: "🎉 رائع! لقد أنهيت الاختبار",
+        ready: "أنت جاهز للدرس التالي.",
+        reset: "أعد الاختبار",
+        question: "السؤال",
+        of: "من",
+        testInfo: "اختبر معلوماتك 🧠",
+        correct: "✅ إجابة صحيحة، أحسنت!",
+        wrong: "❌ إجابة خاطئة، حاول مرة أخرى."
+    } : {
+        finish: "🎉 Great! You finished the test",
+        ready: "You are ready for the next lesson.",
+        reset: "Reset Quiz",
+        question: "Question",
+        of: "of",
+        testInfo: "Test your knowledge 🧠",
+        correct: "✅ Correct answer, well done!",
+        wrong: "❌ Wrong answer, try again."
+    };
     
     // Create quiz wrapper
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'background: white; border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow-md); margin-bottom: 30px;';
+    wrapper.style.cssText = `background: white; border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow-md); margin-bottom: 30px; direction: ${options.direction}; text-align: ${isRtl ? 'right' : 'left'};`;
     
     function drawQuestion() {
         if(currentQuestion >= questions.length) {
             wrapper.innerHTML = `
                 <div style="text-align: center; color: var(--primary-dark);">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">🎉 رائع! لقد أنهيت الاختبار</h3>
-                    <p style="color: var(--gray-800); font-size: 1.1rem;">أنت جاهز للدرس التالي.</p>
-                    <button id="reset-quiz" style="margin-top:20px; background: var(--primary); color: white; padding: 12px 25px; border: none; border-radius: var(--radius); font-size: 1.1rem; cursor: pointer; font-weight: bold;">أعد الاختبار</button>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">${labels.finish}</h3>
+                    <p style="color: var(--gray-800); font-size: 1.1rem;">${labels.ready}</p>
+                    <button id="reset-quiz" style="margin-top:20px; background: var(--primary); color: white; padding: 12px 25px; border: none; border-radius: var(--radius); font-size: 1.1rem; cursor: pointer; font-weight: bold;">${labels.reset}</button>
                 </div>
             `;
             wrapper.querySelector('#reset-quiz').addEventListener('click', () => {
@@ -23,15 +43,15 @@ export function renderQuiz(container, questions) {
 
         const q = questions[currentQuestion];
         wrapper.innerHTML = `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; color: var(--gray-800); font-weight: bold;">
-                <span>السؤال ${currentQuestion + 1} من ${questions.length}</span>
-                <span style="color: var(--primary);">اختبر معلوماتك 🧠</span>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; color: var(--gray-800); font-weight: bold; flex-direction: ${isRtl ? 'row' : 'row-reverse'};">
+                <span style="color: var(--primary);">${labels.testInfo}</span>
+                <span>${labels.question} ${currentQuestion + 1} ${labels.of} ${questions.length}</span>
             </div>
             <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--gray-900); line-height: 1.6;">${q.question}</h3>
             <div style="display: flex; flex-direction: column; gap: 12px;" id="options-container">
                 ${q.options.map((opt, index) => `
                     <button class="quiz-option" data-idx="${index}" style="
-                        text-align: right;
+                        text-align: ${isRtl ? 'right' : 'left'};
                         padding: 15px 20px;
                         background: var(--white);
                         border: 2px solid var(--gray-100);
@@ -63,7 +83,7 @@ export function renderQuiz(container, questions) {
                   e.target.style.background = '#dcfce7'; 
                   e.target.style.borderColor = '#22c55e';
                   feedback.style.color = '#15803d';
-                  feedback.innerText = '✅ إجابة صحيحة، أحسنت!';
+                  feedback.innerText = labels.correct;
                   
                   setTimeout(() => {
                       currentQuestion++;
@@ -73,7 +93,7 @@ export function renderQuiz(container, questions) {
                   e.target.style.background = '#fee2e2'; 
                   e.target.style.borderColor = '#ef4444';
                   feedback.style.color = '#b91c1c';
-                  feedback.innerText = '❌ إجابة خاطئة، حاول مرة أخرى.';
+                  feedback.innerText = labels.wrong;
                   
                   setTimeout(() => {
                       // re-enable
