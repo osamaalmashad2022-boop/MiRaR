@@ -87,4 +87,23 @@ window.addEventListener('popstate', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const initialRoute = window.location.hash.replace('#', '') || 'login';
     navigateTo(initialRoute);
+
+    // Mobile menu toggle logic
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+    }
 });

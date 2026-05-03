@@ -35,6 +35,7 @@ export function renderHome(container) {
                 <h2 style="font-size: 2rem; color: var(--gray-900); font-weight: 800; margin-bottom: 30px;">هذا العمل من إنتاج الطالبات المتميزات:</h2>
 
                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 35px; position: relative; z-index: 1;">
+<<<<<<< HEAD
                     <div class="student-pill">
                         <div style="font-size: 0.85rem; color: var(--primary); margin-bottom: 5px; font-weight: 700;">التنفيذ البرمجي</div>
                         منة محمد الكفافي
@@ -47,6 +48,11 @@ export function renderHome(container) {
                         <div style="font-size: 0.85rem; color: var(--primary); margin-bottom: 5px; font-weight: 700;">التخطيط والتحليل</div>
                         روان عمرو الجندي
                     </div>
+=======
+                    <div class="student-pill">منة محمد الكفافي</div>
+                    <div class="student-pill">روفان ناصر حسن</div>
+                    <div class="student-pill">روان عمرو الجندي</div>
+>>>>>>> 00c13db0c71f4dfe9d082e0cb8aa30bb1c4633df
                 </div>
 
                 <div style="text-align: center; border-top: 2px dashed rgba(203, 213, 225, 0.6); padding-top: 30px; margin: 0 auto; max-width: 600px; position: relative; z-index: 1;">
